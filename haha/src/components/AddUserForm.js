@@ -5,6 +5,7 @@ import { TextField, Button, Box, Typography } from "@mui/material";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import axios from "axios"; // For making HTTP requests
 
 const AddUserForm = () => {
   const validationSchema = Yup.object({
@@ -29,11 +30,17 @@ const AddUserForm = () => {
         role: values.role || "User",
       });
 
+      // Send email to the new user
+      await axios.post("http://localhost:5000/send-email", {
+        email: values.email,
+        password: values.password,
+      });
+
       alert("User added successfully!");
       resetForm();
     } catch (error) {
-      console.error("Error adding user:", error);
-      alert("Failed to add user.");
+      console.error("Error adding user or sending email:", error);
+      alert("Failed to add user or send email.");
     }
   };
 

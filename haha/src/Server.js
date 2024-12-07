@@ -10,19 +10,19 @@ const port = 5000;
 app.use(bodyParser.json());
 app.use(cors());
 
-// Configure the transporter for SMTP (example using Gmail)
+// Configure the transporter for SMTP (Gmail)
 const transporter = nodemailer.createTransport({
-  service: "gmail", // Or use another SMTP provider (e.g., Outlook, SendGrid, etc.)
+  service: "gmail", // Gmail SMTP server
   auth: {
-    user: "your-email@gmail.com", // Replace with your email
-    pass: "your-email-password", // Replace with your email password
+    user: "firastibi06@gmail.com", // Replace with your Gmail address
+    pass: "sqar gwlr lvgr bxgm", // Replace with your Gmail app password
   },
 });
 
 // Send email function
 const sendEmail = (toEmail, password) => {
   const mailOptions = {
-    from: "your-email@gmail.com", // Replace with your email
+    from: "firastibi06@gmail.com", // Replace with your Gmail address
     to: toEmail,
     subject: "Your Account Details",
     text: `Hello, \n\nYour account has been created successfully. \n\nEmail: ${toEmail} \nPassword: ${password}`,
@@ -30,7 +30,7 @@ const sendEmail = (toEmail, password) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log("Error sending email:", error);
+      console.error("Error sending email:", error);
     } else {
       console.log("Email sent:", info.response);
     }
